@@ -104,9 +104,9 @@ export default function Scene3Letter({ onComplete }) {
                   position: 'absolute',
                   inset: 0,
                   backgroundColor: '#121a2d',
-                  borderRadius: '12px',
+                  borderRadius: '14px',
                   boxShadow: '0 20px 45px rgba(0, 0, 0, 0.75), 0 2px 10px rgba(0, 0, 0, 0.4)',
-                  border: '1px solid rgba(245, 215, 127, 0.22)',
+                  border: '1px solid rgba(245, 215, 127, 0.18)',
                   overflow: 'hidden',
                   zIndex: 1,
                 }}
@@ -167,50 +167,55 @@ export default function Scene3Letter({ onComplete }) {
                   height: '100%',
                   zIndex: 3,
                   pointerEvents: 'none',
-                  filter: 'drop-shadow(0 -3px 8px rgba(0, 0, 0, 0.3))',
+                  filter: 'drop-shadow(0 -2px 6px rgba(0, 0, 0, 0.25))',
                 }}
               >
                 <defs>
+                  <clipPath id="envPocketClip">
+                    <rect width="360" height="230" rx="14" ry="14" />
+                  </clipPath>
                   {/* Left flap gradient */}
                   <linearGradient id="envLeftGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#1b253f" />
-                    <stop offset="100%" stopColor="#151e33" />
+                    <stop offset="0%" stopColor="#1e2a47" />
+                    <stop offset="100%" stopColor="#141d32" />
                   </linearGradient>
                   {/* Right flap gradient */}
                   <linearGradient id="envRightGrad" x1="100%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#1a233b" />
-                    <stop offset="100%" stopColor="#141c30" />
+                    <stop offset="0%" stopColor="#1c2742" />
+                    <stop offset="100%" stopColor="#121a2c" />
                   </linearGradient>
                   {/* Bottom flap gradient */}
                   <linearGradient id="envBottomGrad" x1="50%" y1="100%" x2="50%" y2="0%">
-                    <stop offset="0%" stopColor="#222e4d" />
-                    <stop offset="100%" stopColor="#182137" />
+                    <stop offset="0%" stopColor="#243354" />
+                    <stop offset="100%" stopColor="#162036" />
                   </linearGradient>
                 </defs>
 
-                {/* Left Side Flap */}
-                <path
-                  d="M 0,0 L 175,120 L 0,230 Z"
-                  fill="url(#envLeftGrad)"
-                  stroke="rgba(245, 215, 127, 0.18)"
-                  strokeWidth="0.8"
-                />
+                <g clipPath="url(#envPocketClip)">
+                  {/* Left Side Flap */}
+                  <path
+                    d="M 0,0 L 180,118 L 0,230 Z"
+                    fill="url(#envLeftGrad)"
+                    stroke="rgba(245, 215, 127, 0.14)"
+                    strokeWidth="0.8"
+                  />
 
-                {/* Right Side Flap */}
-                <path
-                  d="M 360,0 L 185,120 L 360,230 Z"
-                  fill="url(#envRightGrad)"
-                  stroke="rgba(245, 215, 127, 0.18)"
-                  strokeWidth="0.8"
-                />
+                  {/* Right Side Flap */}
+                  <path
+                    d="M 360,0 L 180,118 L 360,230 Z"
+                    fill="url(#envRightGrad)"
+                    stroke="rgba(245, 215, 127, 0.14)"
+                    strokeWidth="0.8"
+                  />
 
-                {/* Bottom Pocket Flap */}
-                <path
-                  d="M 0,230 L 180,105 L 360,230 Z"
-                  fill="url(#envBottomGrad)"
-                  stroke="rgba(245, 215, 127, 0.22)"
-                  strokeWidth="1"
-                />
+                  {/* Bottom Pocket Flap */}
+                  <path
+                    d="M 0,230 L 180,118 L 360,230 Z"
+                    fill="url(#envBottomGrad)"
+                    stroke="rgba(245, 215, 127, 0.18)"
+                    strokeWidth="0.9"
+                  />
+                </g>
               </svg>
 
               {/* Top Flap with True 3D Flip (Perspective rotateX) */}
@@ -220,7 +225,7 @@ export default function Scene3Letter({ onComplete }) {
                   top: 0,
                   left: 0,
                   width: '100%',
-                  height: '125px',
+                  height: '135px',
                   transformOrigin: 'top center',
                   transformStyle: 'preserve-3d',
                   zIndex: stage === 'opening' || stage === 'sliding' ? 1 : 5,
@@ -233,21 +238,24 @@ export default function Scene3Letter({ onComplete }) {
                 transition={{ duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
               >
                 <svg
-                  viewBox="0 0 360 125"
+                  viewBox="0 0 360 135"
                   style={{ width: '100%', height: '100%', overflow: 'visible' }}
                 >
                   <defs>
+                    <clipPath id="envTopClip">
+                      <rect width="360" height="135" rx="14" ry="14" />
+                    </clipPath>
                     <linearGradient id="envTopGrad" x1="50%" y1="0%" x2="50%" y2="100%">
-                      <stop offset="0%" stopColor="#253457" />
+                      <stop offset="0%" stopColor="#27375a" />
                       <stop offset="100%" stopColor="#1a253e" />
                     </linearGradient>
                   </defs>
-                  {/* Flap contour with smooth rounded tip */}
+                  {/* Flap contour with smooth unified diagonal angles and rounded tip */}
                   <path
-                    d="M 0,0 L 165,118 Q 180,126 195,118 L 360,0 Z"
+                    d="M 14,0 L 346,0 Q 360,0 360,14 L 192,120 Q 180,128 168,120 L 0,14 Q 0,0 14,0 Z"
                     fill="url(#envTopGrad)"
-                    stroke="rgba(245, 215, 127, 0.28)"
-                    strokeWidth="1.2"
+                    stroke="rgba(245, 215, 127, 0.22)"
+                    strokeWidth="0.9"
                   />
                 </svg>
 
@@ -256,11 +264,11 @@ export default function Scene3Letter({ onComplete }) {
                   <div
                     style={{
                       position: 'absolute',
-                      top: '106px',
+                      top: '118px',
                       left: '50%',
                       transform: 'translate(-50%, -50%)',
-                      width: '76px',
-                      height: '76px',
+                      width: '80px',
+                      height: '80px',
                       zIndex: 10,
                       cursor: 'pointer',
                       display: 'flex',
@@ -292,10 +300,10 @@ export default function Scene3Letter({ onComplete }) {
                         }}
                       />
 
-                      {/* User's custom wax seal image */}
+                      {/* User's custom wax seal image (V monogram) */}
                       <img
-                        src="/wax%20seal.png"
-                        alt="Wax Seal"
+                        src="/wax%20seal%20v.png"
+                        alt="Wax Seal V"
                         style={{
                           width: '100%',
                           height: '100%',

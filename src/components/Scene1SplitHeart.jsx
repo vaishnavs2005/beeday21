@@ -15,9 +15,10 @@ export default function Scene1SplitHeart({ onComplete }) {
   const [isDraggingLeft, setIsDraggingLeft] = useState(false);
   const [isDraggingRight, setIsDraggingRight] = useState(false);
 
-  // Large arena resting offsets
-  const defaultLeft = { x: -140, y: -4 };
-  const defaultRight = { x: 140, y: 4 };
+  // Large arena resting offsets (responsive for mobile & Android viewports)
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+  const defaultLeft = isMobile ? { x: -105, y: -2 } : { x: -140, y: -4 };
+  const defaultRight = isMobile ? { x: 105, y: 2 } : { x: 140, y: 4 };
 
   const [leftPos, setLeftPos] = useState(defaultLeft);
   const [rightPos, setRightPos] = useState(defaultRight);
@@ -26,7 +27,7 @@ export default function Scene1SplitHeart({ onComplete }) {
   const startPointerRef = useRef({ x: 0, y: 0 });
   const startPosRef = useRef({ x: 0, y: 0 });
 
-  const SNAP_DISTANCE = 56; // Generous magnetic snap threshold
+  const SNAP_DISTANCE = isMobile ? 48 : 56; // Generous magnetic snap threshold
 
   // When both pieces lock into the center pattern
   useEffect(() => {
@@ -79,6 +80,10 @@ export default function Scene1SplitHeart({ onComplete }) {
   // Pointer drag handler for Left & Right pieces
   const handlePointerDown = (piece, e) => {
     if ((piece === 'left' && leftPlaced) || (piece === 'right' && rightPlaced) || isCompleted) return;
+
+    try {
+      e.target.setPointerCapture?.(e.pointerId);
+    } catch (err) {}
 
     activeDragRef.current = piece;
     startPointerRef.current = { x: e.clientX, y: e.clientY };

@@ -71,20 +71,28 @@ export default function Scene2CakeCandle({ onComplete }) {
     if (flameState !== 'lit' || streamRef.current) return;
     try {
       if (!navigator.mediaDevices?.getUserMedia) return;
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          echoCancellation: false,
-          noiseSuppression: false,
-          autoGainControl: false,
-        },
-      });
+      let stream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            echoCancellation: false,
+            noiseSuppression: false,
+            autoGainControl: false,
+          },
+        });
+      } catch (constraintErr) {
+        // Fallback for Android browsers
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      }
       streamRef.current = stream;
 
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
       const audioCtx = new AudioContextClass();
       audioCtxRef.current = audioCtx;
       if (audioCtx.state === 'suspended') {
-        await audioCtx.resume();
+        try {
+          await audioCtx.resume();
+        } catch (e) {}
       }
 
       const source = audioCtx.createMediaStreamSource(stream);
@@ -122,13 +130,13 @@ export default function Scene2CakeCandle({ onComplete }) {
         const totalAvg = totalEnergy / dataArray.length;
 
         // Real-time flame tilt and flicker in response to breath
-        const intensity = Math.min(1, Math.max(0, (lowAvg - 22) / 70));
+        const intensity = Math.min(1, Math.max(0, (lowAvg - 18) / 60));
         setBlowIntensity(intensity);
 
-        // Blow detection threshold
-        if (lowAvg > 65 || totalAvg > 52) {
+        // Blow detection threshold (optimized for mobile & desktop mics)
+        if (lowAvg > 48 || totalAvg > 42) {
           sustainedBlow++;
-          if (sustainedBlow >= 4) {
+          if (sustainedBlow >= 3) {
             handleBlowCandle();
             return;
           }

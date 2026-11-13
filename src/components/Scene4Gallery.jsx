@@ -191,7 +191,7 @@ function PolaroidItem({ photo, index, onSelect }) {
         whileTap={{ scale: 0.98 }}
         style={{
           width: '100%',
-          maxWidth: 'clamp(112px, 13vw, 142px)',
+          maxWidth: 'clamp(92px, 26vw, 142px)',
           aspectRatio: '3 / 4.1',
           backgroundColor: '#faf8f5',
           borderRadius: '5px',
@@ -409,13 +409,12 @@ export default function Scene4Gallery({ onComplete }) {
     <div
       className="scene-wrapper"
       style={{
-        padding: 'clamp(0.8rem, 2vh, 1.8rem) clamp(1rem, 3.5vw, 2.5rem) clamp(0.6rem, 1.8vh, 1.4rem) clamp(1rem, 3.5vw, 2.5rem)',
+        padding: 'clamp(2.5rem, 6vh, 3.5rem) clamp(0.75rem, 3vw, 2.5rem) clamp(1.2rem, 3vh, 2rem) clamp(0.75rem, 3vw, 2.5rem)',
         maxWidth: '920px',
         width: '100%',
-        maxHeight: '100vh',
+        minHeight: '100dvh',
         justifyContent: 'center',
         boxSizing: 'border-box',
-        overflow: 'hidden',
       }}
     >
       {/* Single Elegant Title */}

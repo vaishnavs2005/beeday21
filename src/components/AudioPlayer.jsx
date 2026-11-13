@@ -115,21 +115,20 @@ export default function AudioPlayer({ musicSrc = "/music.mp3" }) {
 
   // Listen for first interaction
   useEffect(() => {
+    const events = ['pointerdown', 'touchstart', 'click', 'keydown'];
+
     const handleFirstInteraction = () => {
       if (!hasInteracted) {
         setHasInteracted(true);
         startAudio();
       }
-      window.removeEventListener('pointerdown', handleFirstInteraction);
-      window.removeEventListener('keydown', handleFirstInteraction);
+      events.forEach((ev) => window.removeEventListener(ev, handleFirstInteraction));
     };
 
-    window.addEventListener('pointerdown', handleFirstInteraction, { once: true });
-    window.addEventListener('keydown', handleFirstInteraction, { once: true });
+    events.forEach((ev) => window.addEventListener(ev, handleFirstInteraction, { once: true, passive: true }));
 
     return () => {
-      window.removeEventListener('pointerdown', handleFirstInteraction);
-      window.removeEventListener('keydown', handleFirstInteraction);
+      events.forEach((ev) => window.removeEventListener(ev, handleFirstInteraction));
       stopSynthMelody();
     };
   }, [hasInteracted]);

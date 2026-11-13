@@ -17,13 +17,19 @@ export default function MicPromptScreen({ onProceed }) {
 
     try {
       if (navigator.mediaDevices?.getUserMedia) {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          audio: {
-            echoCancellation: false,
-            noiseSuppression: false,
-            autoGainControl: false,
-          },
-        });
+        let stream;
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+              echoCancellation: false,
+              noiseSuppression: false,
+              autoGainControl: false,
+            },
+          });
+        } catch (constraintErr) {
+          // Fallback for mobile / Android browsers that reject specific audio constraints
+          stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        }
         // Stop hardware track until Scene 2 candle blow
         stream.getTracks().forEach((track) => track.stop());
         onProceed(true);

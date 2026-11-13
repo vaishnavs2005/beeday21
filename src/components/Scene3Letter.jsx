@@ -300,10 +300,10 @@ export default function Scene3Letter({ onComplete }) {
                         }}
                       />
 
-                      {/* User's custom wax seal image (V monogram) */}
+                      {/* Wax seal image on envelope (B monogram) */}
                       <img
-                        src="/wax%20seal%20v.png"
-                        alt="Wax Seal V"
+                        src="/wax%20seal.png"
+                        alt="Wax Seal"
                         style={{
                           width: '100%',
                           height: '100%',

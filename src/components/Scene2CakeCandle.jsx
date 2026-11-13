@@ -15,6 +15,8 @@ export default function Scene2CakeCandle({ onComplete }) {
   const audioCtxRef = useRef(null);
   const streamRef = useRef(null);
   const animFrameRef = useRef(null);
+  const isReadyToBlowRef = useRef(false);
+  const baselineRef = useRef(25);
 
   // Stop microphone and release audio hardware
   const stopMic = () => {
@@ -129,19 +131,26 @@ export default function Scene2CakeCandle({ onComplete }) {
         }
         const totalAvg = totalEnergy / dataArray.length;
 
-        // Real-time flame tilt and flicker in response to breath
-        const intensity = Math.min(1, Math.max(0, (lowAvg - 18) / 60));
-        setBlowIntensity(intensity);
-
-        // Blow detection threshold (optimized for mobile & desktop mics)
-        if (lowAvg > 48 || totalAvg > 42) {
-          sustainedBlow++;
-          if (sustainedBlow >= 3) {
-            handleBlowCandle();
-            return;
-          }
+        // Adaptive ambient noise baseline calibration & warm-up period
+        if (!isReadyToBlowRef.current) {
+          baselineRef.current = baselineRef.current * 0.9 + lowAvg * 0.1;
+          setBlowIntensity(0);
         } else {
-          sustainedBlow = Math.max(0, sustainedBlow - 1);
+          // Dynamic threshold based on real ambient room level
+          const blowThreshold = Math.max(74, baselineRef.current + 26);
+          const intensity = Math.min(1, Math.max(0, (lowAvg - baselineRef.current - 10) / 55));
+          setBlowIntensity(intensity);
+
+          // Deliberate breath blow detection: requires continuous breath turbulence
+          if (lowAvg > blowThreshold || (lowAvg > 68 && totalAvg > 54)) {
+            sustainedBlow++;
+            if (sustainedBlow >= 9) {
+              handleBlowCandle();
+              return;
+            }
+          } else {
+            sustainedBlow = Math.max(0, sustainedBlow - 1);
+          }
         }
 
         animFrameRef.current = requestAnimationFrame(processAudio);
@@ -158,7 +167,14 @@ export default function Scene2CakeCandle({ onComplete }) {
     // Attempt to activate microphone on mount
     startMicListener();
 
+    // 1.4s calibration & warm-up period so Android mic initialization transient never blows the candle
+    const warmupTimer = setTimeout(() => {
+      isReadyToBlowRef.current = true;
+    }, 1400);
+
     return () => {
+      clearTimeout(warmupTimer);
+      isReadyToBlowRef.current = false;
       stopMic();
     };
   }, []);

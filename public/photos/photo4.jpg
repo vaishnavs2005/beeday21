@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#134e5e" />
+      <stop offset="50%" stop-color="#71b280" />
+      <stop offset="100%" stop-color="#2d6a4f" />
+    </linearGradient>
+  </defs>
+  <rect width="300" height="400" fill="url(#grad3)" />
+  <polygon points="150,120 70,270 230,270" fill="#2d6a4f"/>
+           <polygon points="150,120 120,175 150,165 180,175" fill="#ffffff"/>
+           <polygon points="220,160 160,280 280,280" fill="#1b4332"/>
+           <circle cx="80" cy="100" r="22" fill="#ffd166"/>
+  <text x="150" y="360" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="600" fill="#fdfbf7" text-anchor="middle" letter-spacing="1">Sweet Adventures</text>
+</svg>

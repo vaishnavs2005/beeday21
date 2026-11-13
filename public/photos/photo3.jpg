@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3e2723" />
+      <stop offset="50%" stop-color="#4e342e" />
+      <stop offset="100%" stop-color="#6d4c41" />
+    </linearGradient>
+  </defs>
+  <rect width="300" height="400" fill="url(#grad2)" />
+  <rect x="90" y="160" width="120" height="90" rx="16" fill="#f5ebe0"/>
+           <path d="M 210,180 C 235,180 235,220 210,220" stroke="#f5ebe0" stroke-width="8" fill="none"/>
+           <ellipse cx="150" cy="165" rx="55" ry="12" fill="#6f4e37"/>
+           <path d="M 140,165 C 135,160 145,155 150,160 C 155,155 165,160 160,165 L 150,172 Z" fill="#ffffff"/>
+           <path d="M 130,130 Q 140,110 135,90" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.6"/>
+           <path d="M 155,130 Q 165,110 160,90" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <text x="150" y="360" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="600" fill="#fdfbf7" text-anchor="middle" letter-spacing="1">Cozy Moments</text>
+</svg>

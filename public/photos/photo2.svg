@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f2027" />
+      <stop offset="50%" stop-color="#203a43" />
+      <stop offset="100%" stop-color="#2c5364" />
+    </linearGradient>
+  </defs>
+  <rect width="300" height="400" fill="url(#grad1)" />
+  <path d="M 200,90 A 40,40 0 1 0 240,150 A 45,45 0 1 1 200,90 Z" fill="#ffeaa7"/>
+           <circle cx="80" cy="80" r="2" fill="#ffffff" opacity="0.9"/>
+           <circle cx="120" cy="140" r="2.5" fill="#f5d77f" opacity="0.8"/>
+           <circle cx="220" cy="60" r="1.5" fill="#ffffff" opacity="0.7"/>
+           <path d="M 0,330 Q 150,300 300,330 L 300,400 L 0,400 Z" fill="#080e1a"/>
+  <text x="150" y="360" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="600" fill="#fdfbf7" text-anchor="middle" letter-spacing="1">Starry Horizon</text>
+</svg>
